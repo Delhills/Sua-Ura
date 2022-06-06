@@ -7,6 +7,7 @@ public class rig : MonoBehaviour
     private Rigidbody rb;
     public float speed;
     public GameObject player;
+    public Vector3 respawnPoint;
     // Start is called before the first frame update
     void Start()
     {
@@ -18,17 +19,15 @@ public class rig : MonoBehaviour
     void Update()
     {
         Vector3 playerpos = player.transform.position;
-
         Vector3 ballpos = rb.position;
-
         Vector3 movement = playerpos - ballpos;
 
         movement.y = 0.0f;
-
         movement.Normalize();
-        
-        //Vector3 movement = new Vector3(1.0f, 0.0f, 1.0f);
-
         rb.AddForce(movement * speed);
+
+        if (transform.position.y < -5){
+            transform.position = respawnPoint;
+        }
     }
 }
